@@ -7,14 +7,16 @@ import java.sql.Statement;
 public class Employees_Chapter04 {
     public static void main(String[] args) {
         // DB接続情報
-        final String URL = "jdbc:mysql://localhost:3306/challenge_java"; // ポート番号はあなたの環境に合わせて
+        final String URL = "jdbc:mysql://localhost:3306/challenge_java";
         final String USER = "root";
         final String PASS = "seiya718";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS)) {
+        // try-with-resources に Statement を追加
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+             Statement stmt = conn.createStatement()) {
+
             System.out.println("データベース接続成功：" + conn);
 
-            Statement stmt = conn.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS employees ("
                        + "id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,"
                        + "name VARCHAR(60) NOT NULL,"
